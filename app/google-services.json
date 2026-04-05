@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "177401090489",
+    "project_id": "androidcomposeauthentication",
+    "storage_bucket": "androidcomposeauthentication.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:177401090489:android:20fb7b4757c3b8b3842668",
+        "android_client_info": {
+          "package_name": "com.example.authentication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCubrSWD-K9JPQ5aCHNG5LLZeedav5juAU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

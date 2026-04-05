@@ -1,0 +1,29 @@
+plugins {
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
+    // ❌ removed compose plugin — not needed here
+}
+
+android {
+    namespace = "com.example.core_common"
+    compileSdk = 34
+
+    defaultConfig {
+        minSdk = 24
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
+    // ❌ removed buildFeatures { compose = true }
+}
+
+dependencies {
+    // empty — Resource.kt needs no dependencies
+}
