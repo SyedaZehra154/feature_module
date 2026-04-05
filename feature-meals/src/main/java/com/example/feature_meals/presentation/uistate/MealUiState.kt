@@ -1,4 +1,4 @@
-package com.example.feature_meals.presentation
+package com.example.feature_meals.presentation.uistate
 
 import com.example.feature_meals.domain.model.Meal
 

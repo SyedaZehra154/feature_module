@@ -10,7 +10,6 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
-// presentation/di/MealModule.kt
 @Module
 @InstallIn(SingletonComponent::class)
 object MealModule {

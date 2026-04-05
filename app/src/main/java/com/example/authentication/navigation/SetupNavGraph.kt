@@ -9,8 +9,8 @@ import androidx.navigation.NavType
 import com.example.feature_auth.presentation.AuthViewModel
 import com.example.feature_auth.presentation.screens.LoginScreen
 import com.example.feature_auth.presentation.screens.SignupScreen
-import com.example.feature_meals.presentation.MealListScreen
-import com.example.feature_meals.presentation.MealDetailScreen
+import com.example.feature_meals.presentation.ui.MealListScreen
+import com.example.feature_meals.presentation.ui.MealDetailScreen
 
 @Composable
 fun SetupNavGraph(

@@ -1,9 +1,10 @@
-package com.example.feature_meals.presentation
+package com.example.feature_meals.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core_common.Resource
 import com.example.feature_meals.domain.repository.MealRepository
+import com.example.feature_meals.presentation.uistate.MealDetailUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

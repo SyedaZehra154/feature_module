@@ -1,4 +1,4 @@
-package com.example.feature_meals.presentation
+package com.example.feature_meals.presentation.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,6 +24,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.example.feature_meals.domain.model.Meal
+import com.example.feature_meals.presentation.uistate.MealUiState
+import com.example.feature_meals.presentation.viewmodel.MealViewModel
 
 @Composable
 fun MealListScreen(
