@@ -1,7 +1,6 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    // ❌ removed compose plugin — not needed here
 }
 
 android {
@@ -21,9 +20,10 @@ android {
         jvmTarget = "17"
     }
 
-    // ❌ removed buildFeatures { compose = true }
 }
 
 dependencies {
     // empty — Resource.kt needs no dependencies
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
 }
