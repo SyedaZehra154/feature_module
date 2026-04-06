@@ -15,7 +15,6 @@ object AuthRoutes {
     const val LOGIN      = "login"
     const val SIGNUP     = "signup"
 }
-
 fun NavGraphBuilder.authNavGraph(
     navController: NavHostController,
     authViewModel: AuthViewModel,
