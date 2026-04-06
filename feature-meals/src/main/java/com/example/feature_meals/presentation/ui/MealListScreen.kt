@@ -32,7 +32,7 @@ import com.example.feature_meals.presentation.viewmodel.MealViewModel
 @Composable
 fun MealListScreen(
     onMealClick: (String) -> Unit,
-    onNavigateToFavourites: () -> Unit,        //
+    onNavigateToFavourites: () -> Unit,
     viewModel: MealViewModel = hiltViewModel()
 ) {
     val state      by viewModel.state.collectAsStateWithLifecycle()

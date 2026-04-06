@@ -1,35 +1,45 @@
-//package com.example.feature_auth.nav_graph
+package com.example.feature_auth.nav_graph
 //
-//import androidx.compose.runtime.Composable
-//import androidx.navigation.compose.*
-//import androidx.navigation.compose.rememberNavController
-//import com.example.feature_auth.presentation.screens.LoginScreen
-//import com.example.feature_auth.presentation.screens.SignupScreen
-//import com.yourpackage.feature_auth.presentation.*
-//
-//@Composable
-//fun AuthNavGraph(viewModel: AuthViewModel) {
-//
-//    val navController = rememberNavController()
-//
-//    NavHost(navController = navController, startDestination = "login") {
-//
-//        composable("login") {
-//            LoginScreen(
-//                viewModel = viewModel,
-//                onNavigateToSignup = {
-//                    navController.navigate("signup")
-//                }
-//            )
-//        }
-//
-//        composable("signup") {
-//            SignupScreen(
-//                viewModel = viewModel,
-//                onSignupSuccess = {
-//                    navController.popBackStack() // go back to login
-//                }
-//            )
-//        }
-//    }
-//}
+
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.composable
+import androidx.navigation.navigation
+import com.example.feature_auth.presentation.AuthViewModel
+import com.example.feature_auth.presentation.screens.LoginScreen
+import com.example.feature_auth.presentation.screens.SignupScreen
+
+//  route constants — avoids hardcoded strings
+object AuthRoutes {
+    const val ROOT       = "auth_root"
+    const val LOGIN      = "login"
+    const val SIGNUP     = "signup"
+}
+
+fun NavGraphBuilder.authNavGraph(
+    navController: NavHostController,
+    authViewModel: AuthViewModel,
+    onLoginSuccess: () -> Unit
+) {
+    navigation(
+        startDestination = AuthRoutes.LOGIN,
+        route            = AuthRoutes.ROOT
+    ) {
+        composable(AuthRoutes.LOGIN) {
+            LoginScreen(
+                viewModel          = authViewModel,
+                onNavigateToSignup = {
+                    navController.navigate(AuthRoutes.SIGNUP)
+                },
+                onLoginSuccess     = onLoginSuccess   //  passed up to app
+            )
+        }
+
+        composable(AuthRoutes.SIGNUP) {
+            SignupScreen(
+                viewModel       = authViewModel,
+                onSignupSuccess = onLoginSuccess      //  same callback
+            )
+        }
+    }
+}

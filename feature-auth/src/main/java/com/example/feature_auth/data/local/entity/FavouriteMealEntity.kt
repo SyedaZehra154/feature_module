@@ -1,6 +1,5 @@
 package com.example.feature_auth.data.local.entity
 
-// feature-auth/src/main/java/com/example/feature_auth/data/local/entity/FavouriteMealEntity.kt
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

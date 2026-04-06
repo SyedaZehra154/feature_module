@@ -24,9 +24,10 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    val authViewModel: AuthViewModel = hiltViewModel() // Inject ViewModel
+                    // Inject ViewModel so it survive configration changes
+                    val authViewModel: AuthViewModel = hiltViewModel()
 
-                    // Pass authViewModel to NavGraph
+
                     SetupNavGraph(
                         navController = navController,
                         authViewModel = authViewModel
@@ -37,42 +38,3 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-/*
-package com.example.authentication
-
-import android.os.Bundle
-import android.util.Log
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Surface
-import androidx.compose.ui.Modifier
-import com.example.authentication.presentation.navigation.AppNavGraph
-import com.example.authentication.ui.theme.AuthenticationTheme
-import com.fusion.twofa.core.Fusion2FA
-import com.google.firebase.messaging.FirebaseMessaging
-class MainActivity : ComponentActivity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
-            Log.d("MainActivity", "Firebase token received: $token")
-            Fusion2FA.setFirebaseToken(token.orEmpty())
-            enableEdgeToEdge()
-            setContent {
-                AuthenticationTheme {
-                    Surface(
-                        modifier = Modifier.fillMaxSize()
-                      ) {
-
-                    }
-                }
-                AppNavGraph()
-            }
-        }.addOnFailureListener {
-            Log.e("MainActivity", "Failed to get Firebase token", it)
-        }
-    }
-}
-*/

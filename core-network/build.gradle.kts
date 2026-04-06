@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.hilt.android)
 }
 
@@ -11,7 +11,6 @@ android {
 
     defaultConfig {
         minSdk = 24
-        // ❌ NO applicationId here
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -29,8 +28,7 @@ dependencies {
 
     // Hilt
     implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
-
+    ksp(libs.hilt.compiler)
     // Networking
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)

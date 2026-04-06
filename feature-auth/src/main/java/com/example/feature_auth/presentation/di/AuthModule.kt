@@ -69,7 +69,7 @@ abstract class AuthModule {
         fun provideUserDao(db: AppDatabase): UserDao =
             db.userDao()
 
-        // ✅ newly added
+        //  newly added
         @Provides
         @Singleton
         fun provideFavouriteMealDao(db: AppDatabase): FavouriteMealDao =

@@ -11,7 +11,6 @@ data class MealDto(
     @SerializedName("strMeal")      val name: String?,
     @SerializedName("strMealThumb") val thumbnailUrl: String?,
 
-    // ADD THESE TWO LINES:
     @SerializedName("strInstructions") val instructions: String?,
     @SerializedName("strCategory")     val category: String?
 )
