@@ -3,7 +3,6 @@ package com.example.feature_meals.domain.repository
 import com.example.core_common.Resource
 import com.example.feature_meals.domain.model.Meal
 
-// Location: feature-meals/domain/repository/MealRepository.kt
 interface MealRepository {
     suspend fun getMealsByCategory(category: String): Resource<List<Meal>>
 

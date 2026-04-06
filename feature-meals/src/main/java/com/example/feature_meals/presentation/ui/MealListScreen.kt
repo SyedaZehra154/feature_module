@@ -66,13 +66,13 @@ fun MealListScreen(
                     }
 
                     items(s.meals, key = { it.id }) { meal ->
-                        val isFav = favourites.any { it.id == meal.id }  // ✅ check if saved
+                        val isFav = favourites.any { it.id == meal.id }  //  check if saved
                         FoodCard(
                             meal      = meal,
                             isFav     = isFav,
                             onClick   = { onMealClick(meal.id) },
                             onFavClick = {
-                                viewModel.toggleFavourite(         // ✅ save/remove from db
+                                viewModel.toggleFavourite(         //  save/remove from db
                                     meal = FavouriteMeal(
                                         id           = meal.id,
                                         name         = meal.name,

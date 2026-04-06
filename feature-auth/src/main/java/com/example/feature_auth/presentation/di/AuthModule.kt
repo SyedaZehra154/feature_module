@@ -29,7 +29,7 @@ abstract class AuthModule {
         impl: AuthRepositoryImpl
     ): AuthRepository
 
-    // ✅ newly added — binds FavouriteRepository interface to its implementation
+    //  newly added — binds FavouriteRepository interface to its implementation
     @Binds
     @Singleton
     abstract fun bindFavouriteRepository(
@@ -38,7 +38,7 @@ abstract class AuthModule {
 
     companion object {
 
-        // ✅ migration from version 1 to 2
+        //  migration from version 1 to 2
         private val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL(

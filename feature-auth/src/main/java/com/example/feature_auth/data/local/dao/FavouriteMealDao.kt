@@ -1,6 +1,5 @@
 package com.example.feature_auth.data.local.dao
 
-// feature-auth/src/main/java/com/example/feature_auth/data/local/dao/FavouriteMealDao.kt
 
 import androidx.room.*
 import com.example.feature_auth.data.local.entity.FavouriteMealEntity
