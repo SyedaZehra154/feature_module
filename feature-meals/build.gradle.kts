@@ -12,10 +12,10 @@ android {
 
     defaultConfig {
         minSdk = 24
+        // ❌ NO applicationId here
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    // ✅ ADD THESE — this was missing and caused the JVM mismatch
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -28,9 +28,6 @@ android {
     buildFeatures {
         compose = true
     }
-
-    // ❌ REMOVE composeOptions block — not needed when using
-    // org.jetbrains.kotlin.plugin.compose, it handles this automatically
 }
 
 dependencies {

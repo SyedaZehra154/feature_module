@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.hilt.android)
-    // ❌ removed compose plugin — network module doesn't need it
 }
 
 android {
@@ -12,6 +11,7 @@ android {
 
     defaultConfig {
         minSdk = 24
+        // ❌ NO applicationId here
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -23,8 +23,6 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-
-    // ❌ removed buildFeatures { compose = true } — not needed here
 }
 
 dependencies {

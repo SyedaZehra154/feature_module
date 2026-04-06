@@ -9,28 +9,34 @@ plugins {
 }
 
 android {
-
     namespace = "com.example.feature_auth"
     compileSdk = 35
 
     defaultConfig {
         minSdk = 24
+        // ❌ NO applicationId — this is a library module
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17  // ✅ changed from 11 to 17
+        targetCompatibility = JavaVersion.VERSION_17  // ✅ changed from 11 to 17
     }
+
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"                              // ✅ changed from 11 to 17
     }
 
     buildFeatures {
         compose = true
     }
 }
+
 dependencies {
+    // Core modules
     implementation(project(":core-common"))
+
+    // Core Android
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -50,9 +56,14 @@ dependencies {
     kapt(libs.hilt.compiler)
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
 
-
     // Room
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
+
+    // Serialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+
+    // Testing
+    testImplementation(libs.junit)
 }
