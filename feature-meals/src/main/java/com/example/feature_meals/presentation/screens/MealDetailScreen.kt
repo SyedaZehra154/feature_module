@@ -1,4 +1,4 @@
-package com.example.feature_meals.presentation.ui
+package com.example.feature_meals.presentation.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -138,16 +138,7 @@ fun MealDetailContent(meal: Meal, onBack: () -> Unit) {
                 color = Color.DarkGray
             )
 
-            Spacer(Modifier.height(32.dp))
 
-            Button(
-                onClick = { /* Add to cart logic */ },
-                modifier = Modifier.fillMaxWidth().height(56.dp),
-                shape = RoundedCornerShape(16.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF44336))
-            ) {
-                Text("Add to Cart", fontSize = 18.sp, fontWeight = FontWeight.Bold)
-            }
         }
     }
 }

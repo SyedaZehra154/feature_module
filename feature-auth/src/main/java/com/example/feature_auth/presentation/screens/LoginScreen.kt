@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -26,15 +27,38 @@ fun LoginScreen(
     onLoginSuccess: () -> Unit
 ) {
     val state by viewModel.state.collectAsState()
+
+    // Pass necessary data and callbacks to the stateless content
+    LoginContent(
+        errorMessage = state.error,
+        onLoginClick = { email, password ->
+            viewModel.login(email, password)
+        },
+        onNavigateToSignup = onNavigateToSignup
+    )
+
+    LaunchedEffect(state.user) {
+        if (state.user != null) {
+            onLoginSuccess()
+        }
+    }
+}
+
+
+@Composable
+fun LoginContent(
+    errorMessage: String,
+    onLoginClick: (String, String) -> Unit,
+    onNavigateToSignup: () -> Unit
+) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-
-    val primaryRed = Color(0xFFF44336) // Your requested color
+    val primaryRed = Color(0xFFF44336)
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White), // Pure solid background for a clean look
+            .background(Color.White),
         contentAlignment = Alignment.Center
     ) {
         Column(
@@ -43,7 +67,6 @@ fun LoginScreen(
                 .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Stronger, Bold Header
             Text(
                 text = "Welcome",
                 style = MaterialTheme.typography.displaySmall.copy(
@@ -61,7 +84,6 @@ fun LoginScreen(
                 modifier = Modifier.padding(bottom = 48.dp)
             )
 
-            // High-Contrast Email Field
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
@@ -79,7 +101,6 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // High-Contrast Password Field
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
@@ -96,8 +117,7 @@ fun LoginScreen(
                 shape = RoundedCornerShape(12.dp)
             )
 
-            // Error message layout improvement
-            if (state.error.isNotEmpty()) {
+            if (errorMessage.isNotEmpty()) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -106,7 +126,7 @@ fun LoginScreen(
                         .padding(8.dp)
                 ) {
                     Text(
-                        text = state.error,
+                        text = errorMessage,
                         color = primaryRed,
                         style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier.align(Alignment.Center)
@@ -116,16 +136,13 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(40.dp))
 
-            // Solid Primary Action Button
             Button(
-                onClick = { viewModel.login(email, password) },
+                onClick = { onLoginClick(email, password) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp),
                 shape = RoundedCornerShape(12.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = primaryRed
-                ),
+                colors = ButtonDefaults.buttonColors(containerColor = primaryRed),
                 elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp)
             ) {
                 Text(
@@ -140,23 +157,66 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Link with weight adjustment
             TextButton(onClick = onNavigateToSignup) {
                 Row {
                     Text("New here? ", color = Color.Gray)
-                    Text(
-                        "Sign Up",
-                        color = primaryRed,
-                        fontWeight = FontWeight.Bold
-                    )
+                    Text("Sign Up", color = primaryRed, fontWeight = FontWeight.Bold)
                 }
             }
         }
     }
+}
 
-    LaunchedEffect(state.user) {
-        if (state.user != null) {
-            onLoginSuccess()
-        }
+// --- PREVIEWS ---
+
+@Preview(showBackground = true, name = "Default State")
+@Composable
+fun PreviewLoginDefault() {
+    MaterialTheme {
+        LoginContent(
+            errorMessage = "",
+            onLoginClick = { _, _ -> },
+            onNavigateToSignup = {}
+        )
     }
 }
+
+@Preview(showBackground = true, name = "Error State")
+@Composable
+fun PreviewLoginError() {
+    MaterialTheme {
+        LoginContent(
+            errorMessage = "Invalid email or password",
+            onLoginClick = { _, _ -> },
+            onNavigateToSignup = {}
+        )
+    }
+}
+
+//User types → UI state updates (email/password)
+//        ↓
+//Clicks login
+//        ↓
+//ViewModel.login()
+//        ↓
+//Updates StateFlow
+//        ↓
+//collectAsState() observes
+//        ↓
+//UI recomposes
+//        ↓
+//If success → LaunchedEffect triggers navigation
+
+
+
+//StateFlow → “What is the current state?”
+//SharedFlow → “Something just happened!”
+//LiveData → “Old way to observe data”
+
+//LaunchedEffect is used to run coroutine-based side effects
+// tied to a composable’s lifecycle.
+//Side effects are operations that go beyond UI rendering
+// and interact with the outside world.
+
+//State is used to hold data so that when it changes,
+// the UI automatically updates (recomposes) in Jetpack Compose

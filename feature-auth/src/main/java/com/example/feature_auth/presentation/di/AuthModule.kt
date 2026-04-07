@@ -19,28 +19,20 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+//  Hilt module: defines how dependencies are provided
 @Module
+//  Installed in application scope (lives as long as app)
 @InstallIn(SingletonComponent::class)
 abstract class AuthModule {
 
-    @Binds
-    @Singleton
-    abstract fun bindAuthRepository(
-        impl: AuthRepositoryImpl
-    ): AuthRepository
-
-    //  newly added — binds FavouriteRepository interface to its implementation
-    @Binds
-    @Singleton
-    abstract fun bindFavouriteRepository(
-        impl: FavouriteRepositoryImpl
-    ): FavouriteRepository
-
     companion object {
 
-        //  migration from version 1 to 2
+        //  Migration from version 1 to 2
+        // Handles database schema update safely (no data loss)
         private val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
+
+                // 🔹 SQL query to create favourite_meals table
                 database.execSQL(
                     """
                     CREATE TABLE IF NOT EXISTS favourite_meals (
@@ -53,6 +45,7 @@ abstract class AuthModule {
             }
         }
 
+        //  Provides Room database instance
         @Provides
         @Singleton
         fun provideDatabase(@ApplicationContext context: Context): AppDatabase =
@@ -61,15 +54,17 @@ abstract class AuthModule {
                 AppDatabase::class.java,
                 "auth_db"
             )
-                .addMigrations(MIGRATION_1_2)   // ✅ added migration
+                // 🔹 Apply migration when DB version updates
+                .addMigrations(MIGRATION_1_2)
                 .build()
 
+        //  Provides UserDao from database
         @Provides
         @Singleton
         fun provideUserDao(db: AppDatabase): UserDao =
             db.userDao()
 
-        //  newly added
+        //  Provides FavouriteMealDao from database
         @Provides
         @Singleton
         fun provideFavouriteMealDao(db: AppDatabase): FavouriteMealDao =

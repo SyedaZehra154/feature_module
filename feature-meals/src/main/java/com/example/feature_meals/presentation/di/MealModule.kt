@@ -10,15 +10,23 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
+// Hilt module: used to provide dependencies
 @Module
+
+//  Installed at application level (Singleton scope)
 @InstallIn(SingletonComponent::class)
 object MealModule {
 
+    //  Provides MealApi implementation using Retrofit
+    // Retrofit dynamically creates the implementation of the interface
     @Provides
     @Singleton
     fun provideMealApi(retrofit: Retrofit): MealApi =
         retrofit.create(MealApi::class.java)
 
-    @Provides @Singleton
+    //  Provides MealRepository interface implementation
+    // Binds MealRepository to MealRepositoryImpl
+    @Provides
+    @Singleton
     fun provideMealRepository(impl: MealRepositoryImpl): MealRepository = impl
 }

@@ -1,4 +1,4 @@
-package com.example.feature_meals.presentation.ui
+package com.example.feature_meals.presentation.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -124,7 +124,7 @@ fun FoodCard(
                     contentScale       = ContentScale.Crop
                 )
 
-                // ✅ Favourite button — red if saved, gray outline if not
+                //  Favourite button — red if saved, gray outline if not
                 IconButton(
                     onClick  = onFavClick,
                     modifier = Modifier

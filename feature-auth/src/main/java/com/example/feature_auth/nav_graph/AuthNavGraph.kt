@@ -9,7 +9,6 @@ import com.example.feature_auth.presentation.AuthViewModel
 import com.example.feature_auth.presentation.screens.LoginScreen
 import com.example.feature_auth.presentation.screens.SignupScreen
 
-//  route constants — avoids hardcoded strings
 object AuthRoutes {
     const val ROOT       = "auth_root"
     const val LOGIN      = "login"

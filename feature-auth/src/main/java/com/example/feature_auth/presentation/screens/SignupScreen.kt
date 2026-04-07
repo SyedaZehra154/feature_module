@@ -6,7 +6,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -17,6 +16,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.feature_auth.presentation.AuthViewModel
 
 @Composable
@@ -24,15 +24,30 @@ fun SignupScreen(
     viewModel: AuthViewModel,
     onSignupSuccess: () -> Unit
 ) {
+    // In a real app, you'd likely collect state from the viewModel here
+    SignupContent(
+        onSignupClick = { email, password ->
+            viewModel.signup(email, password)
+            onSignupSuccess()
+        },
+        onBackToLogin = onSignupSuccess
+    )
+}
+
+@Composable
+fun SignupContent(
+    onSignupClick: (String, String) -> Unit,
+    onBackToLogin: () -> Unit
+) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
-    val primaryRed = Color(0xFFF44336) // Consistent accent color
+    val primaryRed = Color(0xFFF44336)
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White), // Solid clean white background
+            .background(Color.White),
         contentAlignment = Alignment.Center
     ) {
         Column(
@@ -41,7 +56,6 @@ fun SignupScreen(
                 .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Bold Header to match Login
             Text(
                 text = "Join Us",
                 style = MaterialTheme.typography.displaySmall.copy(
@@ -59,7 +73,6 @@ fun SignupScreen(
                 modifier = Modifier.padding(bottom = 48.dp)
             )
 
-            // High-Contrast Email Field
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
@@ -77,7 +90,6 @@ fun SignupScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // High-Contrast Password Field
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
@@ -96,19 +108,13 @@ fun SignupScreen(
 
             Spacer(modifier = Modifier.height(40.dp))
 
-            // Solid Primary Action Button
             Button(
-                onClick = {
-                    viewModel.signup(email, password)
-                    onSignupSuccess()
-                },
+                onClick = { onSignupClick(email, password) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp),
                 shape = RoundedCornerShape(12.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = primaryRed
-                ),
+                colors = ButtonDefaults.buttonColors(containerColor = primaryRed),
                 elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp)
             ) {
                 Text(
@@ -123,8 +129,7 @@ fun SignupScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Back to Login Link
-            TextButton(onClick = onSignupSuccess) {
+            TextButton(onClick = onBackToLogin) {
                 Row {
                     Text("Already have an account? ", color = Color.Gray)
                     Text(
@@ -137,3 +142,17 @@ fun SignupScreen(
         }
     }
 }
+
+// --- PREVIEW ---
+
+@Preview(showBackground = true, device = "spec:width=411dp,height=891dp")
+@Composable
+fun SignupScreenPreview() {
+    MaterialTheme {
+        SignupContent(
+            onSignupClick = { _, _ -> },
+            onBackToLogin = {}
+        )
+    }
+}
+//allback functions are used to handle actions/events by letting another part of the code decide what to do.

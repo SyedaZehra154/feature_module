@@ -7,9 +7,9 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.example.feature_meals.presentation.ui.FavouriteScreen
-import com.example.feature_meals.presentation.ui.MealDetailScreen
-import com.example.feature_meals.presentation.ui.MealListScreen
+import com.example.feature_meals.presentation.screens.FavouriteScreen
+import com.example.feature_meals.presentation.screens.MealDetailScreen
+import com.example.feature_meals.presentation.screens.MealListScreen
 
 //  route constants
 object MealRoutes {

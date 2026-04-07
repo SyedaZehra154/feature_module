@@ -23,7 +23,6 @@ class MealDetailViewModel @Inject constructor(
         viewModelScope.launch {
             _state.value = MealDetailUiState.Loading
 
-            // Fixed exhaustive 'when' block
             when (val result = repository.getMealDetails(id)) {
                 is Resource.Success -> {
                     result.data?.let {

@@ -1,4 +1,4 @@
-package com.example.feature_meals.presentation.ui
+package com.example.feature_meals.presentation.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -38,7 +38,6 @@ fun FavouriteScreen(
     ) {
         Column {
 
-            // ── Top bar ──────────────────────────────
             Row(
                 modifier          = Modifier
                     .fillMaxWidth()
